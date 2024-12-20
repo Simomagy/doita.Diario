@@ -14,7 +14,7 @@ public class Menu : Entity
             Environment.Exit(0);
             break;
         case "s":
-            Console.WriteLine("Le pagine si aprono con uno sbuffo di polvere e maliconia...");
+            Console.WriteLine("Le pagine si aprono con uno sbuffo di polvere e malinconia...");
             Console.WriteLine("Cosa vuoi fare?");
             Console.WriteLine("1. Leggi il diario \n2. Scrivi una nuova pagina \n3. Correggi una pagina \n4. Strappa una pagina\n\n0. Esci");
             choice = Console.ReadLine().ToLower();

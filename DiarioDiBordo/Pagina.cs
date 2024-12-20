@@ -22,7 +22,7 @@ namespace DiarioDiBordo
             return  $@"
             Pagina {base.Id}
                     {Luogo}
-                    Data: {DataScrittura:dddd,dd/MMMM/yy}
+                    Data: {DataScrittura:dddd, dd/MMMM/yy}
                     Cooordinate: X: {X}, Y: {Y} 
                     ---------------------------
                     '{descrizioneFormattata}'
