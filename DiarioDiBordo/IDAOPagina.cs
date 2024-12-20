@@ -1,5 +1,9 @@
 ﻿namespace DiarioDiBordo
 {
+    // ReSharper disable once InconsistentNaming
+    /// <summary>
+    /// Implementa i metodi per la ricerca di pagine nel diario
+    /// </summary>
     internal interface IDAOPagina
     {
         public List<Pagina> RicercaPerTempo(DateTime dataIniziale, DateTime dataFinale);

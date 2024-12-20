@@ -1,5 +1,6 @@
-﻿using _04_Utility;
-using System;
+﻿//@formatter: on
+
+using _04_Utility;
 using System.Text.RegularExpressions;
 
 namespace DiarioDiBordo
@@ -7,27 +8,27 @@ namespace DiarioDiBordo
     internal class Pagina : Entity
     {
         public DateTime DataScrittura { get; set; }
-        public float X {  get; set; }
+        public float X { get; set; }
         public float Y { get; set; }
         public string Luogo { get; set; } = string.Empty;
         public string Descrizione { get; set; } = string.Empty;
 
         public override string ToString()
         {
-            var pattern = @"\.";
-            var replacement = ".\n";
-            Regex rgx = new(pattern);
+            const string pattern = @"\.";
+            const string replacement = ".\n";
+            var rgx = new Regex(pattern);
             var descrizioneFormattata = rgx.Replace(Descrizione, replacement);
-            
-            return  $@"
-            Pagina {base.Id}
-                    {Luogo}
-                    Data: {DataScrittura:dddd, dd/MMMM/yy}
-                    Cooordinate: X: {X}, Y: {Y} 
-                    ---------------------------
-                    '{descrizioneFormattata}'
-                    ---------------------------";
-        }
 
+            return $"""
+                    Pagina {Id}
+                            {Luogo}
+                            Data: {DataScrittura:dddd, dd/MMMM/yy}
+                            Cooordinate: X: {X}, Y: {Y} 
+                            ---------------------------
+                            '{descrizioneFormattata}'
+                            ---------------------------
+                    """;
+        }
     }
 }
