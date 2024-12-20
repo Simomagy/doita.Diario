@@ -12,12 +12,14 @@ namespace DiarioDiBordo
 
         public override string ToString()
         {
-            return base.ToString() + $@"
-                        {Luogo}
-                        Data: {DataScrittura:dddd,dd/MMMM/yy}
-                        Cooordinate: {X},{Y}
-                        ---------------------------
-                        '{Descrizione}'";
+            return  $@"
+            Pagina {base.Id}
+                    {Luogo}
+                    Data: {DataScrittura:dddd,dd/MMMM/yy}
+                    Cooordinate: X: {X}, Y: {Y} 
+                    ---------------------------
+                    '{Descrizione}'
+                    ---------------------------";
         }
 
     }

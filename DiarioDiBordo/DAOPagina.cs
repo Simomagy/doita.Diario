@@ -29,7 +29,7 @@ namespace DiarioDiBordo
                             $"  {x}," +
                             $"  {y}," +
                             $" '{luogo}'," +
-                            $" '{descrizione});");
+                            $" '{descrizione}');");
         }
 
         public bool DeleteRecord(int recordId)
@@ -53,7 +53,7 @@ namespace DiarioDiBordo
         public List<Entity> GetRecords()
         {
             List<Entity> records = new();
-            var righe = db.ReadDb("SELECT * FROM {tableName};");
+            var righe = db.ReadDb($"SELECT * FROM {tableName};");
             if (righe != null)
             {
                 foreach (var riga in righe)
@@ -78,8 +78,8 @@ namespace DiarioDiBordo
 
             return db.UpdateDb($"UPDATE {tableName} SET " +
                 $"DataScrittura = '{dataScrittura}'," +
-                $"X = {x}'," +
-                $"Y = {y}'," +
+                $"X = {x}," +
+                $"Y = {y}," +
                 $"Luogo = '{luogo}'," +
                 $"Descrizione = '{descrizione}'" +
                 $"WHERE Id = {entity.Id};");
