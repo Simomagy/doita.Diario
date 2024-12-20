@@ -1,4 +1,6 @@
 ﻿using _04_Utility;
+using System;
+using System.Text.RegularExpressions;
 
 namespace DiarioDiBordo
 {
@@ -12,13 +14,18 @@ namespace DiarioDiBordo
 
         public override string ToString()
         {
+            var pattern = @"\.";
+            var replacement = ".\n";
+            Regex rgx = new(pattern);
+            var descrizioneFormattata = rgx.Replace(Descrizione, replacement);
+            
             return  $@"
             Pagina {base.Id}
                     {Luogo}
                     Data: {DataScrittura:dddd,dd/MMMM/yy}
                     Cooordinate: X: {X}, Y: {Y} 
                     ---------------------------
-                    '{Descrizione}'
+                    '{descrizioneFormattata}'
                     ---------------------------";
         }
 
