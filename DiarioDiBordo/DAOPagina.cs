@@ -23,13 +23,19 @@ namespace DiarioDiBordo
         }
         public bool CreateRecord(Entity entity)
         {
+            var dataScrittura = ((Pagina)entity).DataScrittura.ToString("yyyy-MM-dd");
+            var x = ((Pagina)entity).X;
+            var y = ((Pagina)entity).Y;
+            var luogo = ((Pagina)entity).Luogo.Replace("'", "''");
+            var descrizione = ((Pagina)entity).Descrizione.Replace("'", "''");
+
             return db.UpdateDb($"INSERT INTO Diario (DataScrittura,X,Y,Luogo,Descrizione)" +
-                $"VALUES" +
-                $"('{((Pagina)entity).DataScrittura.ToString("yyyy-MM-dd")}'," +
-                $"  {((Pagina)entity).X}," +
-                $"  {((Pagina)entity).Y}," +
-                $" '{((Pagina)entity).Luogo.Replace("'", "''")}'," +
-                $" '{((Pagina)entity).Descrizione.Replace("'", "''")});");
+                            $"VALUES" +
+                            $"('{dataScrittura}'," +
+                            $"  {x}," +
+                            $"  {y}," +
+                            $" '{luogo}'," +
+                            $" '{descrizione});");
         }
 
         public bool DeleteRecord(int recordId)
@@ -65,12 +71,18 @@ namespace DiarioDiBordo
 
         public bool UpdateRecord(Entity entity)
         {
+            var dataScrittura = ((Pagina)entity).DataScrittura.ToString("yyyy-MM-dd");
+            var x = ((Pagina)entity).X;
+            var y = ((Pagina)entity).Y;
+            var luogo = ((Pagina)entity).Luogo.Replace("'", "''");
+            var descrizione = ((Pagina)entity).Descrizione.Replace("'", "''");
+
             return db.UpdateDb($"UPDATE Diario SET " +
-                $"DataScrittura = '{((Pagina)entity).DataScrittura.ToString("yyyy-MM-dd")}'," +
-                $"X = {((Pagina)entity).X}'," +
-                $"Y = {((Pagina)entity).Y}'," +
-                $"Luogo = '{((Pagina)entity).Luogo.Replace("'","''")}'," +
-                $"Descrizione = '{((Pagina)entity).Descrizione.Replace("'","''")}'" +
+                $"DataScrittura = '{dataScrittura}'," +
+                $"X = {x}'," +
+                $"Y = {y}'," +
+                $"Luogo = '{luogo}'," +
+                $"Descrizione = '{descrizione}'" +
                 $"WHERE Id = {entity.Id};");
         }
     }
