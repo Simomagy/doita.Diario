@@ -1,4 +1,6 @@
-﻿# Dovete gestire un diario di bordo.
+![doita.Diario](https://socialify.git.ci/Simomagy/doita.Diario/image?font=Bitter&language=1&name=1&owner=1&theme=Dark)
+ 
+ # Dovete gestire un diario di bordo.
 
 #### Ogni 'pagina' del diario avrà la data del giorno, le coordinate X e Y di dove ci si trova, il nome del luogo in cui ci si trova e una descrizione di cosa è successo.
 
