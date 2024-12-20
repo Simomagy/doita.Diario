@@ -1,18 +1,14 @@
 ﻿using _04_Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiarioDiBordo
 {
-    internal class DAOPagina : IDAO, IDAOPagina 
+    internal class DAOPagina : IDAO, IDAOPagina
     {
+        private readonly string tableName = "Diario";
         private readonly IDatabase db;
         private DAOPagina()
         {
-            db = new Database("DiarioDiBordo", "DESKTOP-4QKQO49");
+            db = new Database("DiarioDiBordo", "MSSTU");
         }
         private static DAOPagina? instance;
         public static DAOPagina GetInstance()
@@ -27,7 +23,7 @@ namespace DiarioDiBordo
             var luogo = ((Pagina)entity).Luogo.Replace("'", "''");
             var descrizione = ((Pagina)entity).Descrizione.Replace("'", "''");
 
-            return db.UpdateDb($"INSERT INTO Diario (DataScrittura,X,Y,Luogo,Descrizione)" +
+            return db.UpdateDb($"INSERT INTO {tableName} (DataScrittura,X,Y,Luogo,Descrizione)" +
                             $"VALUES" +
                             $"('{dataScrittura}'," +
                             $"  {x}," +
@@ -38,12 +34,12 @@ namespace DiarioDiBordo
 
         public bool DeleteRecord(int recordId)
         {
-            return db.UpdateDb($"DELETE FROM Diario WHERE Id = {recordId};");
+            return db.UpdateDb($"DELETE FROM {tableName} WHERE Id = {recordId};");
         }
 
         public Entity? FindRecord(int recordId)
         {
-            var riga = db.ReadOneDb($"SELECT * FROM Diario WHERE Id = {recordId};");
+            var riga = db.ReadOneDb($"SELECT * FROM {tableName} WHERE Id = {recordId};");
             if(riga != null)
             {
                 Entity e = new Pagina();
@@ -57,7 +53,7 @@ namespace DiarioDiBordo
         public List<Entity> GetRecords()
         {
             List<Entity> records = new();
-            var righe = db.ReadDb("SELECT * FROM Diario;");
+            var righe = db.ReadDb("SELECT * FROM {tableName};");
             if (righe != null)
             {
                 foreach (var riga in righe)
@@ -80,7 +76,7 @@ namespace DiarioDiBordo
             var luogo = ((Pagina)entity).Luogo.Replace("'", "''");
             var descrizione = ((Pagina)entity).Descrizione.Replace("'", "''");
 
-            return db.UpdateDb($"UPDATE Diario SET " +
+            return db.UpdateDb($"UPDATE {tableName} SET " +
                 $"DataScrittura = '{dataScrittura}'," +
                 $"X = {x}'," +
                 $"Y = {y}'," +
@@ -127,7 +123,7 @@ namespace DiarioDiBordo
 
             foreach (Pagina p in pagine)
             {
-                if (p.Descrizione.Contains(descrizione))
+                if (p.Descrizione.ToLower().Contains(descrizione))
                     ris.Add(p);
 
             }
