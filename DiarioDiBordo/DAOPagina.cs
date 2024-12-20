@@ -8,7 +8,7 @@ namespace DiarioDiBordo
         private readonly IDatabase db;
         private DAOPagina()
         {
-            db = new Database("DiarioDiBordo", "DESKTOP-TVSGFKC");
+            db = new Database("DiarioDiBordo", "MSSTU");
         }
         private static DAOPagina? instance;
         public static DAOPagina GetInstance()
