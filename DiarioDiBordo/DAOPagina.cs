@@ -7,19 +7,17 @@ using System.Threading.Tasks;
 
 namespace DiarioDiBordo
 {
-    internal class DAOPagina : IDAO
+    internal class DAOPagina : IDAO, IDAOPagina 
     {
-        private IDatabase db;
+        private readonly IDatabase db;
         private DAOPagina()
         {
             db = new Database("DiarioDiBordo", "DESKTOP-4QKQO49");
         }
-        private static DAOPagina instance = null;
+        private static DAOPagina? instance;
         public static DAOPagina GetInstance()
         {
-            if (instance == null)
-                instance = new DAOPagina();
-            return instance;
+            return instance ?? new DAOPagina();
         }
         public bool CreateRecord(Entity entity)
         {
@@ -40,12 +38,12 @@ namespace DiarioDiBordo
 
         public bool DeleteRecord(int recordId)
         {
-            return db.UpdateDb($"DELETE FROM Diario WHERE Id = {Id};");
+            return db.UpdateDb($"DELETE FROM Diario WHERE Id = {recordId};");
         }
 
         public Entity? FindRecord(int recordId)
         {
-            var riga = db.ReadOneDb($"SELECT * FROM Diario WHERE Id = {Id};");
+            var riga = db.ReadOneDb($"SELECT * FROM Diario WHERE Id = {recordId};");
             if(riga != null)
             {
                 Entity e = new Pagina();
@@ -60,13 +58,18 @@ namespace DiarioDiBordo
         {
             List<Entity> records = new();
             var righe = db.ReadDb("SELECT * FROM Diario;");
-            foreach(var riga in righe)
+            if (righe != null)
             {
-                Entity e = new Pagina();
-                e.TypeSort(riga);
-                records.Add(e);
+                foreach (var riga in righe)
+                {
+                    Entity e = new Pagina();
+                    e.TypeSort(riga);
+                    records.Add(e);
+                }
+                return records;
             }
-            return records;
+            else
+                return null;
         }
 
         public bool UpdateRecord(Entity entity)
@@ -84,6 +87,51 @@ namespace DiarioDiBordo
                 $"Luogo = '{luogo}'," +
                 $"Descrizione = '{descrizione}'" +
                 $"WHERE Id = {entity.Id};");
+        }
+
+        public List<Pagina> RicercaPerTempo(DateTime dataIniziale, DateTime dataFinale)
+        {
+            var ris = new List<Pagina>();
+
+            var pagine = GetRecords();
+
+            foreach (Pagina p in pagine)
+            {
+                if(p.DataScrittura >= dataIniziale && p.DataScrittura <= dataFinale)
+                    ris.Add(p);
+                
+            }
+            return ris;
+        }
+
+        public List<Pagina> RicercaPerLuogo(string luogo)
+        {
+            var ris = new List<Pagina>();
+
+            var pagine = GetRecords();
+
+            foreach (Pagina p in pagine)
+            {
+                if (p.Luogo == luogo )
+                    ris.Add(p);
+
+            }
+            return ris;
+        }
+
+        public List<Pagina> RicercaPerDescrizione(string descrizione)
+        {
+            var ris = new List<Pagina>();
+
+            var pagine = GetRecords();
+
+            foreach (Pagina p in pagine)
+            {
+                if (p.Descrizione.Contains(descrizione))
+                    ris.Add(p);
+
+            }
+            return ris;
         }
     }
 }
