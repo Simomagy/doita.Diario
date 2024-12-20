@@ -19,4 +19,8 @@ Tabella diario:
 - Luogo (VARCHAR 255)
 - Descrizione (TEXT)
 
-Query 
+Metodi CRUD
+Metodo RicercaPerTempo
+Metodo RicercaPerLuogo
+Metodo RicercaPerDescrizione
+Classe Modello
